@@ -1,7 +1,7 @@
 # Limitless Data Ingestor
-::: callout
-**Warning:** This is an example project and not intended for production use. Proceed with caution.
-:::
+
+> [!WARNING]
+> This is an example project and not intended for production use. Proceed with caution.
 
 A TypeScript-based application for ingesting and managing data from the Limitless API. This service fetches lifelogs from the Limitless API on a scheduled basis, stores them in a database, and provides a REST API and React dashboard for data visualization.
 
