@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -12,7 +12,7 @@ interface HeaderProps {
   onIngest: () => void;
 }
 
-function Header({ onRefresh, onIngest }: HeaderProps) {
+function Header({ onRefresh, onIngest }: HeaderProps): ReactElement {
   return (
     <AppBar position="static">
       <Toolbar>

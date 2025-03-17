@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -8,10 +8,11 @@ interface DashboardProps {
   status: {
     status: string;
     stats: {
-      total: number;
-      parsed: number;
-      unparsed: number;
-      latest?: string;
+      totalEntries: number;
+      parsedEntries: number;
+      unparsedEntries: number;
+      dbSize: number;
+      lastUpdated: string;
     };
     timestamp: string;
   } | null;
@@ -22,7 +23,7 @@ interface ChartData {
   value: number;
 }
 
-function Dashboard({ status }: DashboardProps): JSX.Element | null {
+function Dashboard({ status }: DashboardProps): ReactElement | null {
   // If status is not available yet, show loading
   if (!status || !status.stats) {
     return null;
@@ -32,8 +33,8 @@ function Dashboard({ status }: DashboardProps): JSX.Element | null {
   
   // Data for the parsed vs unparsed pie chart
   const data: ChartData[] = [
-    { name: 'Parsed', value: stats.parsed },
-    { name: 'Unparsed', value: stats.unparsed },
+    { name: 'Parsed', value: stats.parsedEntries },
+    { name: 'Unparsed', value: stats.unparsedEntries },
   ];
   
   // Colors for the pie chart
@@ -54,9 +55,9 @@ function Dashboard({ status }: DashboardProps): JSX.Element | null {
             Processing Status
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Total Entries: {stats.total}
+            Total Entries: {stats.totalEntries}
           </Typography>
-          {stats.total > 0 ? (
+          {stats.totalEntries > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -98,7 +99,7 @@ function Dashboard({ status }: DashboardProps): JSX.Element | null {
             Recent Activity
           </Typography>
           <Typography variant="body2">
-            Latest Entry: {stats.latest ? new Date(stats.latest).toLocaleString() : 'None'}
+            Latest Entry: {stats.lastUpdated ? new Date(stats.lastUpdated).toLocaleString() : 'None'}
           </Typography>
           <Typography variant="body2" sx={{ mt: 2 }}>
             Last Updated: {new Date(status.timestamp).toLocaleString()}
